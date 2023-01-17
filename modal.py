@@ -15,4 +15,12 @@ class User(db.Model):
     name = db.Column(db.String(80), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
 
+with app.app_context():
+    db.drop_all()
+    db.create_all()
+
+    user = User(name='Camilo Italo', email='alpha19ci@gmail.com')
+    db.session.add(user)
+    db.session.commit()
+
 
