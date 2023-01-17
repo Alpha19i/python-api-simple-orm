@@ -11,4 +11,24 @@ CORS(app)
 api = Api(app) 
 ma = Marshmallow(app)
 
+class Users(Resource):
+    def get(self):
+        all_users = User.query.all()
+        result = users_schema.dump(all_users)
+        return make_response(jsonify(result), 200)
 
+    def post(self):
+        user = User(name=request.json['name'], email=request.json['email'])
+        db.session.add(user)
+        db.session.commit()
+        result = user_schema.dump(user)
+        return make_response(jsonify(result), 200)
+
+    def put(self):
+        user = User.query.filter_by(id=request.json['id']).first()
+        user.name = request.json['name']
+        user.email = request.json['email']
+        db.session.add(user)
+        db.session.commit()
+        result = user_schema.dump(user)
+        return make_response(jsonify(result), 200)
