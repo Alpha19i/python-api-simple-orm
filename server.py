@@ -46,3 +46,8 @@ class UserById(Resource):
         return make_response(jsonify(result), 200)
 
 
+api.add_resource(Users, '/users')
+api.add_resource(UserById, '/users/<id>')
+
+if __name__ == '__main__':
+    app.run(host = "0.0.0.0", port=5001, debug=True)
