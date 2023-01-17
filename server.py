@@ -6,3 +6,9 @@ from json import dumps
 from flask_cors import CORS, cross_origin
 from modal import db, User, app, users_schema, user_schema
 from flask_marshmallow import Marshmallow
+
+CORS(app)
+api = Api(app) 
+ma = Marshmallow(app)
+
+
