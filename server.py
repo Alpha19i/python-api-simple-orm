@@ -31,4 +31,18 @@ class Users(Resource):
         db.session.add(user)
         db.session.commit()
         result = user_schema.dump(user)
+        return make_response(jsonify(result), 200) 
+
+class UserById(Resource):
+    def delete(self, id):
+        user = User.query.filter_by(id=id).first()
+        db.session.delete(user)
+        db.session.commit()
+        return make_response(jsonify({"status":"success"}), 200)
+
+    def get(self, id):
+        user = User.query.filter_by(id=id).first()
+        result = user_schema.dump(user)
         return make_response(jsonify(result), 200)
+
+
